@@ -1,0 +1,14 @@
+*.pdf
+
+target/
+build/
+dist/
+
+.env*/
+env*/
+__*__/
+*.pyc
+*.pyx
+
+notes/
+notes.md

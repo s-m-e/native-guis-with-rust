@@ -49,7 +49,7 @@
 ]
 
 #slide[
-  = (Partially) hypothetical use case
+  = (Partially) hypothetical use case \#1
   #show: later
 
   - Browsing, discovering and tagging of "chaotic" *image libraries*
@@ -63,6 +63,20 @@
   - Loading or generating thumbnails / previews in the background
   - Partial loading of image files (where format supports it)
 
+]
+
+#slide[
+  = (Partially) hypothetical use case \#2
+  #show: later
+
+  - Small tool for moving files around and basic diagnostics
+  - Check for attached USB device
+  - Format, mount, unpack tar files or similar, verify, unmount
+  - Provide status output
+  - Very non-technical target audience, colorful, buttons
+  - Trivial updates
+
+  \ Python script with PyQt/PySide, managed entirely by `uv`, does the job ... ?
 ]
 
 #slide[

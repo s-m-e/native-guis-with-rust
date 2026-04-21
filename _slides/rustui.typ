@@ -1,17 +1,24 @@
 #import "@preview/polylux:0.4.0": *
 #import "@preview/rustycure:0.2.0": qr-code
 
+#let title = "Native GUIs with Rust"
+#let release = "2026-04-21"
+#let url = "github.com/s-m-e/native-guis-with-rust"
 #let color_bg = rgb("#333132")
 #let color_fg = rgb("#bfbfbf")
 
 #set page(
   paper: "presentation-16-9",
   footer: align(
-    right,
-    text(
-      size: .8em,
-      toolbox.slide-number,
-    )
+    bottom,
+    toolbox.full-width-block(
+      fill: color_bg,
+      inset: 8mm,
+    )[
+      #text(size: 12pt)[#release | #title | #url]
+      #h(1fr)
+      #text(size: 16pt)[#toolbox.slide-number / #toolbox.last-slide-number]
+    ]
   ),
   margin: (bottom: 2em, rest: 1em),
   fill: rgb(color_bg),
@@ -23,14 +30,12 @@
 )
 #show heading: set block(below: 2em)
 
-#let title="Native GUIs with Rust"
-
 #slide[
   #set page(footer: none)
   #set align(horizon)
 
   #qr-code(
-    "https://github.com/s-m-e/native-guis-with-rust",
+    "https://" + url,
     width: 80mm,
     quiet-zone: false,
     dark-color: color_fg,
@@ -38,7 +43,7 @@
   )
 
   #text(1.5em)[#title] \
-  #text(0.8em)[Rust User Group Leipzig, 2026-04-21]
+  #text(0.8em)[Rust User Group Leipzig, #release]
 
   Sebastian M. Ernst \<ernst\@pleiszenburg.de\>
 ]

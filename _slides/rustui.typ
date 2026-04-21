@@ -1,4 +1,5 @@
 #import "@preview/polylux:0.4.0": *
+#import "@preview/rustycure:0.2.0": qr-code
 
 #set page(
   paper: "presentation-16-9",
@@ -17,6 +18,12 @@
 #slide[
   #set page(footer: none)
   #set align(horizon)
+
+  #qr-code(
+    "https://github.com/s-m-e/native-guis-with-rust",
+    width: 80mm,
+    quiet-zone: false,
+  )
 
   #text(1.5em)[#title] \
   #text(0.8em)[Rust User Group Leipzig]

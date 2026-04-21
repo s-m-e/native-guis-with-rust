@@ -1,0 +1,12 @@
+[package]
+name = "imgview"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+slint = "1.9"
+image = "0.25"
+chrono = "0.4"
+
+[build-dependencies]
+slint-build = "1.9"

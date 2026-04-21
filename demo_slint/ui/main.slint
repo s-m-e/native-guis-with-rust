@@ -1,0 +1,191 @@
+import { ScrollView, Slider, VerticalBox } from "std-widgets.slint";
+
+struct ImageData {
+    thumbnail: image,
+    full-image: image,
+    filename: string,
+    modified: string,
+    index: int,
+}
+
+export component MainWindow inherits Window {
+    title: "Image Viewer";
+    min-width: 800px;
+    min-height: 600px;
+
+    in-out property <[ImageData]> images: [];
+    in-out property <int> selected-index: 0;
+    in-out property <bool> image-view-active: false;
+    in-out property <float> thumbnail-size: 150;
+    in-out property <image> current-full-image;
+    in-out property <int> columns: max(1, floor((root.width - 40px) / (thumbnail-size * 1px + 20px)));
+
+    callback request-full-image(int);
+    callback clear-full-image();
+    callback toggle-fullscreen();
+    callback navigate(int); // direction: 0=left, 1=right, 2=up, 3=down
+    callback navigate-image(int); // direction: 0=left (prev), 1=right (next)
+
+    forward-focus: key-handler;
+
+    key-handler := FocusScope {
+        width: 100%;
+        height: 100%;
+
+        key-pressed(event) => {
+            if (event.text == "f") {
+                root.toggle-fullscreen();
+                return accept;
+            }
+
+            if (root.image-view-active) {
+                if (event.text == Key.Escape) {
+                    root.image-view-active = false;
+                    root.clear-full-image();
+                    return accept;
+                }
+                if (event.text == Key.LeftArrow) {
+                    root.navigate-image(0);
+                    return accept;
+                }
+                if (event.text == Key.RightArrow) {
+                    root.navigate-image(1);
+                    return accept;
+                }
+            } else {
+                if (event.text == Key.LeftArrow) {
+                    root.navigate(0);
+                    return accept;
+                }
+                if (event.text == Key.RightArrow) {
+                    root.navigate(1);
+                    return accept;
+                }
+                if (event.text == Key.UpArrow) {
+                    root.navigate(2);
+                    return accept;
+                }
+                if (event.text == Key.DownArrow) {
+                    root.navigate(3);
+                    return accept;
+                }
+                if (event.text == Key.Return) {
+                    root.request-full-image(root.selected-index);
+                    root.image-view-active = true;
+                    return accept;
+                }
+            }
+            return reject;
+        }
+
+        // Overview View
+        if !root.image-view-active: VerticalBox {
+            padding: 10px;
+
+            // Size slider
+            HorizontalLayout {
+                padding-bottom: 10px;
+                spacing: 10px;
+
+                Text {
+                    text: "Thumbnail Size:";
+                    vertical-alignment: center;
+                }
+
+                Slider {
+                    minimum: 80;
+                    maximum: 300;
+                    value <=> root.thumbnail-size;
+                    width: 200px;
+                }
+
+                Text {
+                    text: round(root.thumbnail-size) + "px";
+                    vertical-alignment: center;
+                    min-width: 50px;
+                }
+
+                Rectangle { }
+            }
+
+            // Thumbnails grid
+            ScrollView {
+                viewport-height: max(self.height, ceil(root.images.length / root.columns) * (root.thumbnail-size * 1px + 60px));
+
+                Flickable {
+                    for img[i] in root.images: Rectangle {
+                        x: mod(i, root.columns) * (root.thumbnail-size * 1px + 20px) + 10px;
+                        y: floor(i / root.columns) * (root.thumbnail-size * 1px + 60px) + 10px;
+                        width: root.thumbnail-size * 1px;
+                        height: root.thumbnail-size * 1px + 40px;
+
+                        border-width: root.selected-index == i ? 3px : 1px;
+                        border-color: root.selected-index == i ? #0078d4 : #cccccc;
+                        border-radius: 4px;
+                        background: root.selected-index == i ? #e5f1fb : #ffffff;
+
+                        VerticalLayout {
+                            padding: 5px;
+                            spacing: 2px;
+
+                            Rectangle {
+                                height: root.thumbnail-size * 1px - 10px;
+
+                                Image {
+                                    source: img.thumbnail;
+                                    width: 100%;
+                                    height: 100%;
+                                    image-fit: contain;
+                                }
+                            }
+
+                            Text {
+                                text: img.filename;
+                                font-size: 10px;
+                                overflow: elide;
+                                horizontal-alignment: center;
+                            }
+
+                            Text {
+                                text: img.modified;
+                                font-size: 9px;
+                                color: #666666;
+                                horizontal-alignment: center;
+                            }
+                        }
+
+                        touch := TouchArea {
+                            clicked => {
+                                root.selected-index = i;
+                            }
+                            double-clicked => {
+                                root.selected-index = i;
+                                root.request-full-image(i);
+                                root.image-view-active = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Image View
+        if root.image-view-active: Rectangle {
+            background: #000000;
+
+            Image {
+                source: root.current-full-image;
+                width: 100%;
+                height: 100%;
+                image-fit: contain;
+            }
+
+            TouchArea {
+                clicked => {
+                    root.image-view-active = false;
+                    root.clear-full-image();
+                }
+            }
+        }
+    }
+}

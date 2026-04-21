@@ -26,10 +26,9 @@
   )
 
   #text(1.5em)[#title] \
-  #text(0.8em)[Rust User Group Leipzig]
+  #text(0.8em)[Rust User Group Leipzig, 2026-04-21]
 
-  Sebastian M. Ernst \<ernst\@pleiszenburg.de\> \
-  2026-04-21
+  Sebastian M. Ernst \<ernst\@pleiszenburg.de\>
 ]
 
 #slide[

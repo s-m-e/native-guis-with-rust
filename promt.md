@@ -1,8 +1,8 @@
-Build a minimal image viewer in Rust.
+Build an image viewer in Rust.
 
 Use the crate "slint" for the UI.
 
-The application is supposed to as small and minimal as possible, yet also as fast and "snappy" as possible. Latencies on user input are to be minimized.
+The application is supposed to be as small and minimal as possible, yet also as fast and "snappy" as possible. Latencies on user input are to be minimized.
 
 The application must have two different views: "Overview" and "Image".
 

@@ -18,7 +18,8 @@
   #set page(footer: none)
   #set align(horizon)
 
-  #text(1.5em)[#title]
+  #text(1.5em)[#title] \
+  #text(0.8em)[Rust User Group Leipzig]
 
   Sebastian M. Ernst \<ernst\@pleiszenburg.de\> \
   2026-04-21
@@ -28,15 +29,17 @@
   = (Partially) hypothetical use case
   #show: later
 
-  - Browsing, discovering and tagging of *image libraries*
-    - Microscope images
-    - Astronomical images (including scanned libraries)
+  - Browsing, discovering and tagging of "chaotic" *image libraries*
     - Remote sensing data
-    - Calibration / research stuff
+    - Astronomical images (including scanned libraries)
+    - Other R&D stuff, e.g. microscope or calibration imagery
   - More 100s of gigabytes at least, possibly *100s of terabytes* in size
+  - Anywhere from 100k files & folders to 10M+ files
   - Access via *plain file system* (e.g. NFS, GlusterFS, ZFS, etc.)
   - Indexing of folder structures and files in the background
   - Loading or generating thumbnails / previews in the background
+  - Partial loading of image files (where format supports it)
+
 ]
 
 #slide[

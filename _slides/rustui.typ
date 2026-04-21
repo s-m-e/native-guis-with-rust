@@ -1,16 +1,26 @@
 #import "@preview/polylux:0.4.0": *
 #import "@preview/rustycure:0.2.0": qr-code
 
+#let color_bg = rgb("#333132")
+#let color_fg = rgb("#bfbfbf")
+
 #set page(
   paper: "presentation-16-9",
-  footer: align(right, text(size: .8em, toolbox.slide-number)),
+  footer: align(
+    right,
+    text(
+      size: .8em,
+      toolbox.slide-number,
+    )
+  ),
   margin: (bottom: 2em, rest: 1em),
+  fill: rgb(color_bg),
 )
 #set text(
-  font: "Lato",
-  size: 23pt,
+  font: "Open Sans",
+  size: 22pt,
+  fill: color_fg,
 )
-#show math.equation: set text(font: "Lete Sans Math")
 #show heading: set block(below: 2em)
 
 #let title="Native GUIs with Rust"
@@ -23,6 +33,8 @@
     "https://github.com/s-m-e/native-guis-with-rust",
     width: 80mm,
     quiet-zone: false,
+    dark-color: color_fg,
+    light-color: color_bg,
   )
 
   #text(1.5em)[#title] \

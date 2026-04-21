@@ -1,0 +1,17 @@
+[package]
+name = "imgv"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "imgv"
+path = "src/main.rs"
+
+[dependencies]
+fltk = { version = "1", features = ["fltk-bundled"] }
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "gif", "tiff"] }
+clap = { version = "4", features = ["derive"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
